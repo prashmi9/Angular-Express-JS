@@ -1,0 +1,32 @@
+<div>
+  <h2>Home Component</h2>
+  <button mat-raised-button color="primary" (click)="addItem()">
+    Add Random Item
+  </button>
+  @if(successMessage){
+  <div class="success" (click)="closeMessage()" autoHideMsg>
+    {{ successMessage }}
+    <button mat-icon-button (click)="successMessage = ''">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  } @if(removedMessage){
+  <div class="removed" (click)="closeMessage()" autoHideMsg>
+    {{ removedMessage }}
+    <button mat-icon-button (click)="removedMessage = ''">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  }
+
+  <ul>
+    @for (item of data$ | async; track item){
+    <li>
+      <a [routerLink]="['/details', item]">{{ item }}</a> &nbsp;
+      <button mat-raised-button color="warn" (click)="removeItem(item)">
+        Remove
+      </button>
+    </li>
+    }
+  </ul>
+</div>
