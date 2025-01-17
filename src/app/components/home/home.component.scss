@@ -28,3 +28,11 @@
   align-items: center;
   width: 60vw;
 }
+.list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  width: 30%;
+}

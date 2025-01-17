@@ -1,17 +1,32 @@
-import { Directive, ElementRef, Input, OnInit } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from "@angular/core";
 
 @Directive({
-  selector: '[autoHideMsg]',
+  selector: "[autoHideMsg]",
   standalone: true,
 })
-export class AutoHideMsgDirective implements OnInit {
+export class AutoHideMsgDirective implements OnChanges {
   @Input() hideAfter: number = 5000;
+  @Input() show: boolean = false;
 
   constructor(private el: ElementRef) {}
 
-  ngOnInit(): void {
-    setTimeout(() => {
-      this.el.nativeElement.style.display = 'none';
-    }, this.hideAfter);
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes["show"]) {
+      if (this.show) {
+        this.el.nativeElement.style.display = "flex";
+        setTimeout(() => {
+          this.el.nativeElement.style.display = "none";
+        }, this.hideAfter);
+      } else {
+        this.el.nativeElement.style.display = "none";
+      }
+    }
   }
 }
